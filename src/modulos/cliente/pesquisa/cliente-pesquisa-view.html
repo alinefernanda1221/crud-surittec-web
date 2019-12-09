@@ -1,0 +1,43 @@
+<div class="jumbotron" style="width: 100%;">
+	<h1>Pesquisar Clientes
+		<i class="fas fa-search"></i>
+	</h1>
+	<hr>
+	<label for="inputPesquisarCliente">Pesquisa de clientes </label>
+	<div class="input-group md form-group">
+		<input class="form-control" type="number" ng-model="clientePesquisaCtrl.codigoPesquisaCliente" id="inputPesquisarCliente"
+			placeholder="Informe o código do cliente ou clique em pesquisar para buscar todos">
+		<div class="input-group-append">
+			<button class="btn btn-success" type="button" ng-click="clientePesquisaCtrl.pesquisarCliente()" id="pesquisarCliente">
+				<i class="fa fa-search"></i> Pesquisar
+			</button>
+		</div>
+		<table class="table table-hover text-center" style="background-color: white; margin-top: 30px;" ng-if="clientePesquisaCtrl.clientesPesquisados.length > 0" style="margin-top: 30px;">
+			<thead>
+				<tr>
+					<th><a href="">#</a></th>
+					<th><a href="">Codigo</a></th>
+					<th><a href="">Nome</a></th>
+					<th><a href="">CPF</a></th>
+				</tr>
+			</thead>
+			<tbody ng-repeat='cliente in clientePesquisaCtrl.clientesPesquisados track by $index'>
+				<td data-toggle="tooltip" data-placement="bottom" title="{{ !clientePesquisaCtrl.isAdmin() ? clientePesquisaCtrl.mensagemPermissao : '' }}">
+					<a href="" ng-click="clientePesquisaCtrl.editarCliente(cliente)" 
+						ng-class="{ linkDisabled : !clientePesquisaCtrl.isAdmin() }"
+						>
+						<i class="fas fa-edit" style="color: black"></i>
+					</a>
+				</td>
+				<td>{{ cliente.id }}</td>
+				<td>{{ cliente.nome }}</td>
+				<td>{{ cliente.cpf }}</td>
+			</tbody>
+		</table>
+	</div>
+	<br>
+	<hr>
+	<button class="btn btn-primary pull-left" ng-click="clientePesquisaCtrl.voltar()" id="botaoVoltar">
+		<i class="fa fa-arrow-left"></i> Voltar
+	</button>
+</div>

@@ -1,0 +1,32 @@
+.jumbotron {
+    padding: 6rem 2rem !important;
+}
+
+input.ng-invalid.ng-dirty {
+    border-color: red;
+    color: red;
+}
+input.ng-valid.ng-dirty {
+    border-color: green;
+    color: green;
+}
+.parsley-error.control-label {
+    border: 1px solid red;
+    display: none;
+}
+
+.parsley-custom-error-message {
+    color: red;
+}
+
+.parsley-required {
+    color: red;
+}
+
+.linkDisabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: grey;
+  }
+
+/* form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength parsley-error ng-touched */

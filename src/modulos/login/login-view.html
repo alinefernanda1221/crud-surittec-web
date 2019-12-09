@@ -1,0 +1,18 @@
+
+<div class="container d-flex justify-content-center" style="margin: auto;">
+    <div class="card text-center" style="padding: 2%;">
+        <form class="form form-group" ng-submit="loginCtrl.efetuarLogin()" id="form-cadastro-login"
+              name="loginCtrl.formLogin" novalidate>
+          <h1 class="h3 mb-3">Entrar</h1>
+          <div class="form-group">
+              <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuário" 
+                     ng-model="loginCtrl.usuario.login" required autofocus>
+          </div>
+          <div class="form-group">
+              <input class="form-control" type="password" id="senha" name="senha" placeholder="Senha"
+                     ng-model="loginCtrl.usuario.senha" required autofocus>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Efetuar login</button>
+        </form>
+    </div>
+</div>

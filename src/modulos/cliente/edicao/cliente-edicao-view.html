@@ -1,0 +1,197 @@
+<div class="jumbotron" style="width: 100%;">
+	<h1>Editar Cliente
+		<i class="fas fa-user-edit"></i>  #{{ clienteEdicaoCtrl.cliente.id }}
+	</h1>
+	<hr>
+
+	<!--DADOS BÁSICOS-->
+	<h5 class="text-center">Dados Básicos</h5>
+	<hr style="width: 50%;">
+	<div class="d-flex justify-content-center">
+		<form ng-submit="clienteEdicaoCtrl.atualizarCliente()" id="form-editar-cliente" novalidate id="editar-cliente" 
+				name="clienteEdicaoCtrl.formEdicaoCliente" class="form form-group">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="control-label" for="nome">Nome *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.nome" id="nome" name="nome" required
+					minlength="3" maxlength="100" data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCaracteres }}"
+					>
+				</div>
+				<div class="col-md-6">
+					<label for="cpf">CPF *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.cpf" id="cpf" name="cpf" 
+							ui-mask="999.999.999.99" required data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCampoObrigatorio }}">		
+				</div>				
+			</div>
+			<br>
+			<br>
+			
+			<!--DADOS DE ENDERECO-->
+			<h5 class="text-center">Dados de Endereço</h5>
+			<hr style="width: 50%;">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="control-label" for="cep">CEP *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.endereco.cep" id="cep" ui-mask="99999-999"
+							required data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCampoObrigatorio }}" 
+							ng-blur="clienteEdicaoCtrl.consultarEnderecoCliente()">
+				</div>
+				<div class="col-md-6">
+					<label class="control-label" for="bairro">Bairro *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.endereco.bairro" id="bairro" required
+							data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCampoObrigatorio }}">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="control-label" for="logradouro">Logradouro *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.endereco.logradouro" required id="logradouro" 
+							name="logradouro" data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCampoObrigatorio }}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="control-label" for="complemento">Complemento</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.endereco.complemento"
+							name="complemento" id="complemento">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4">
+					<label class="control-label" for="cidade">Cidade *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.endereco.cidade" id="cidade" 
+							name="cidade" required data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCampoObrigatorio }}">
+				</div>
+				<div class="col-md-4">
+					<label class="control-label" for="estado">UF *</label>
+					<input class="form-control" type="text" ng-model="clienteEdicaoCtrl.cliente.endereco.uf" required 
+							id="estado" name="estado" data-parsley-error-message="{{ clienteEdicaoCtrl.mensagemCampoObrigatorio }}"
+							limit-to="2">
+				</div>
+				<div class="col-md-4">
+					<label class="control-label" for="numero">Número</label>
+					<input class="form-control" type="number" ng-model="clienteEdicaoCtrl.cliente.endereco.numero" limit-to="4" id="numero">
+				</div>
+			</div>
+			<br>
+			<br>
+			<h5 class="text-center">Dados de Contato</h5>
+			<hr style="width: 50%;">
+			
+			<!-- EMAIL -->
+			<div class="row">
+				<div class="col-md-10">
+					<label class="control-label" for="email">E-mail</label>
+					<input class="form-control" type="email" ng-model="clienteEdicaoCtrl.enderecoEmail" id="email" name="email"
+							data-parsley-type="email">
+				</div>
+				<div class="col col-md-2 ml-auto">
+					<label class="control-label" for="adicionar">&nbsp</label>
+					<input class="btn btn-primary" type="button" value="Adicionar"
+						ng-click="clienteEdicaoCtrl.adicionarEmail(clienteEdicaoCtrl.enderecoEmail)" id="adicionar" />
+				</div>
+			</div>
+			<table class="table table-hover text-center" ng-if="clienteEdicaoCtrl.cliente.emails.length > 0" style="margin-top: 30px;">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Email</th>
+							<th class="pull-right">Ações</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="obj in clienteEdicaoCtrl.cliente.emails">
+						<td>{{ $index + 1 }}</td>
+						<td>{{ obj.email }}</td>
+						<td class="pull-right">
+							<span ng-click="clienteEdicaoCtrl.removerEmail($index)">
+								<a href="" ng-show="clienteEdicaoCtrl.cliente.emails.length > 1">
+									<i class ="fa fa-trash" style="color: green"></i>
+								</a>
+							</span>
+						</td>
+					</tbody>
+				</table>
+				<div class="text-center text-primary" ng-if="clienteEdicaoCtrl.cliente.emails.length == 1">
+					<span>
+						{{ clienteEdicaoCtrl.mensagemEmail }}
+					</span>
+				</div>
+			<br>			
+			<br>			
+			
+			<!-- TELEFONES -->
+			<label for="telefones">Telefones: </label>
+			<div class="row" id="telefones">
+				<div class="col-md-5">
+					<label class="control-label" for="tipoTelefone">Tipo</label>
+					<select class="form-control" ng-model="clienteEdicaoCtrl.telefone.tipoTelefone.id" id="tipoTelefone">
+						<option ng-repeat="tipoTelefone in clienteEdicaoCtrl.opcoesTipo" value="{{ tipoTelefone.id }}">
+							{{tipoTelefone.nomeTipo}}
+						</option>
+					</select>
+				</div>
+				<div class="col-md-5">
+					<label class="control-label" for="telefone">Número</label>
+					<input 	class="form-control" type="text" ng-model="clienteEdicaoCtrl.telefone.numero" id="telefone" ng-keyup="clienteEdicaoCtrl.habilitar()"
+							ui-mask="{{ clienteEdicaoCtrl.mascara }}" mask-change="clienteEdicaoCtrl.mascara">
+				</div>
+				<div class="col-md-2" ng-if="clienteEdicaoCtrl.telefone.tipo == 2">
+					<label class="control-label" for="whatsApp">
+						<i class="fab fa-whatsapp"></i>
+					</label>
+					<input type="checkbox" id="whatsApp" name="whatsApp" ng-model="clienteEdicaoCtrl.telefone.whatsApp">
+				</div>
+				<div class="col col-md-2">
+					<label class="control-label" for="adicionar">&nbsp</label>
+					<input class="btn btn-primary" type="button" value="Adicionar" ng-disabled="!clienteEdicaoCtrl.habilitarBotao"
+						ng-click="clienteEdicaoCtrl.adicionarTelefone(clienteEdicaoCtrl.telefone)" id="adicionar" />
+				</div>
+			</div>
+			<table class="table table-hover text-center" ng-if="clienteEdicaoCtrl.cliente.telefones.length > 0" style="margin-top: 30px;">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Numero</th>
+						<th>Tipo</th>
+						<th class="pull-right">Remover ?</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="tel in clienteEdicaoCtrl.cliente.telefones">
+					<td>{{ $index + 1 }}</td>
+					<td>{{ tel.numero }}</td>
+					<td>{{ clienteEdicaoCtrl.retornaNomeTipo(tel) }}</td>
+					<td class="pull-right">
+						<span ng-click="clienteEdicaoCtrl.removerTelefone($index)">
+							<a href="" ng-show="clienteEdicaoCtrl.cliente.telefones.length > 1">
+								<i class ="fa fa-trash" style="color: green"></i>
+							</a>
+						</span>
+					</td>
+				</tbody>
+			</table>
+			<div class="text-center text-primary" ng-if="clienteEdicaoCtrl.cliente.telefones.length == 1">
+				<span>
+					{{ clienteEdicaoCtrl.mensagemTelefone }}
+				</span>
+			</div>
+			<br>
+			<br>
+
+			<!--BOTÕES-->
+			<hr>
+			<div class="container" style="padding: 0px;">
+				<button class="btn btn-primary pull-left" type="button" ng-click="clienteEdicaoCtrl.voltar()" id="botaoVoltar">
+					<i class="fa fa-arrow-left"></i> Voltar
+				</button>
+				<button class="btn btn-success pull-right" type="submit" id="botaoSalvar">
+					<i class="fa fa-save"></i> Salvar Atualizações
+				</button>
+			</div>
+		</form>
+		<!--FIM FORM-->
+	</div>
+
+
+</div>
